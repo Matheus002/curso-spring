@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.City;
+import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.Product;
 import com.matheus.cursoudemy.domain.State;
+import com.matheus.cursoudemy.domain.enums.ClientType;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.repositories.CityRepository;
 import com.matheus.cursoudemy.repositories.ProductRepository;
@@ -48,6 +50,9 @@ public class CursoudemyApplication implements CommandLineRunner{
 		City c1 = new City(null, "Vitória da Conquista", est1);
 		City c2 = new City(null, "Belo Horizonte", est2);
 		City c3 = new City(null, "Ouro Preto", est2);
+		
+		Client cli1 = new Client(null, "Maria Silva", "maria_silva@gmail.com", "28435779000197", ClientType.PHYSICALPERSON);
+		cli1.getPhones().addAll(Arrays.asList("77852521412","77984521212"));
 		
 		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProducts().addAll(Arrays.asList(p2));
