@@ -1,7 +1,5 @@
 package com.matheus.cursoudemy.resources;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,7 @@ public class CategoryResource {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Optional<Category> obj = service.find(id);
+		Category obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 			
 	}

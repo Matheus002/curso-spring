@@ -14,9 +14,10 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repo;
 	
-	public Optional<Category> find(Integer id) {
+	public Category find(Integer id) {
 		Optional<Category> obj = repo.findById(id);
-		return obj;
+		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
+				"Object not found! Id: " + id + ", Type: " + Category.class.getName()));
 	}
 
 }
