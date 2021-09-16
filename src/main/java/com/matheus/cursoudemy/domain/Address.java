@@ -3,9 +3,19 @@ package com.matheus.cursoudemy.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String publicPlace;
 	private String number;
@@ -13,8 +23,12 @@ public class Address implements Serializable {
 	private String district;
 	private String zipCode;
 	
+	@ManyToOne
+	@JoinColumn(name="client_id")
 	private Client client;
 	
+	@ManyToOne
+	@JoinColumn(name="city_id")
 	private City city;
 	
 	public Integer getId() {
