@@ -3,14 +3,25 @@ package com.matheus.cursoudemy.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
 import com.matheus.cursoudemy.domain.enums.PaymentState;
 
+@Entity
 public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	private Integer id;
 	private PaymentState state;
 	
+	@OneToOne
+	@JoinColumn(name ="order_id")
+	@MapsId
 	private Order order;
 
 	public Payment() {
