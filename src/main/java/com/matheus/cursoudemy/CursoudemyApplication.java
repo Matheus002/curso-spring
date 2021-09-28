@@ -1,5 +1,6 @@
 package com.matheus.cursoudemy;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.matheus.cursoudemy.domain.Address;
+import com.matheus.cursoudemy.domain.CardPayment;
 import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.City;
 import com.matheus.cursoudemy.domain.Client;
+import com.matheus.cursoudemy.domain.Order;
+import com.matheus.cursoudemy.domain.Payment;
 import com.matheus.cursoudemy.domain.Product;
 import com.matheus.cursoudemy.domain.State;
 import com.matheus.cursoudemy.domain.enums.ClientType;
+import com.matheus.cursoudemy.domain.enums.PaymentState;
 import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.repositories.CityRepository;
@@ -63,6 +68,15 @@ public class CursoudemyApplication implements CommandLineRunner{
 		
 		Address e1 = new Address(null, "Rua Marta Vasconcelos", "403", "Casa amarela da esquina", "Centro", "45017810", cli1, c1);
 		Address e2 = new Address(null, "Avenida Matos", "105", "sala 303", "Centro", "30710485", cli1, c3);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Order ped1 = new Order(null, sdf.parse("30/09/2017 10:20"), cli1, e1);
+		Order ped2 = new Order(null, sdf.parse("10/10/2017 15:20"), cli1, e2);
+		
+		Payment pag1 = new CardPayment(null, PaymentState.PAID, ped1, 6);
+		ped1.setPayment(pag1);
+		
 		
 		cli1.getAddresses().addAll(Arrays.asList(e1,e2));
 		

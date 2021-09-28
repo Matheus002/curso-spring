@@ -9,33 +9,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "order_table")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date instance;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
 	private Payment payment;
 	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
 	
+	@ManyToOne
+	@JoinColumn(name = "delivery_id")
 	private Address deliveryAddress;
 	
 	public Order() {
 		
 	}
 
-	public Order(Integer id, Date instance, Payment payment, Client client, Address deliveryAddress) {
+	public Order(Integer id, Date instance, Client client, Address deliveryAddress) {
 		super();
 		this.id = id;
 		this.instance = instance;
-		this.payment = payment;
 		this.client = client;
 		this.deliveryAddress = deliveryAddress;
 	}

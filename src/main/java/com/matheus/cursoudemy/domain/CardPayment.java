@@ -1,7 +1,10 @@
 package com.matheus.cursoudemy.domain;
 
+import javax.persistence.Entity;
+
 import com.matheus.cursoudemy.domain.enums.PaymentState;
 
+@Entity
 public class CardPayment extends Payment{
 	private static final long serialVersionUID = 1L;
 	

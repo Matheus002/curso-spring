@@ -2,12 +2,20 @@ package com.matheus.cursoudemy.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.matheus.cursoudemy.domain.enums.PaymentState;
 
+@Entity
 public class TicketPayment extends Payment {
 	private static final long serialVersionUID = 1L;
 	
+	@Temporal(TemporalType.DATE)
 	private Date dueDate;
+	
+	@Temporal(TemporalType.DATE)
 	private Date paymentDate;
 	
 	public TicketPayment() {	
