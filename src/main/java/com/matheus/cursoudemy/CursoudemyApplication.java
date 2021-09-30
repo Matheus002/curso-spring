@@ -14,6 +14,7 @@ import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.City;
 import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.Order;
+import com.matheus.cursoudemy.domain.OrderItem;
 import com.matheus.cursoudemy.domain.Payment;
 import com.matheus.cursoudemy.domain.Product;
 import com.matheus.cursoudemy.domain.State;
@@ -24,6 +25,7 @@ import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.repositories.CityRepository;
 import com.matheus.cursoudemy.repositories.ClientRepository;
+import com.matheus.cursoudemy.repositories.OrderItemRepository;
 import com.matheus.cursoudemy.repositories.OrderRepository;
 import com.matheus.cursoudemy.repositories.PaymentRepository;
 import com.matheus.cursoudemy.repositories.ProductRepository;
@@ -48,6 +50,8 @@ public class CursoudemyApplication implements CommandLineRunner{
 	private OrderRepository orderRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoudemyApplication.class, args);
@@ -87,8 +91,14 @@ public class CursoudemyApplication implements CommandLineRunner{
 		Payment pag2 = new TicketPayment(null, PaymentState.PENDING, ped2, sdf.parse("20/10/2021 00:00"), null);
 		ped2.setPayment(pag2);
 		
-		cli1.getOrders().addAll(Arrays.asList(ped1, ped2));
+		OrderItem ip1 = new OrderItem(ped1, p1, 0.00, 1, 2000.00);
+		OrderItem ip2 = new OrderItem(ped1, p3, 0.00, 2, 80.00);
+		OrderItem ip3 = new OrderItem(ped2, p2, 100.00, 1, 800.00);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));	
+		
+		cli1.getOrders().addAll(Arrays.asList(ped1, ped2));	
 		
 		cli1.getAddresses().addAll(Arrays.asList(e1,e2));
 		
@@ -102,6 +112,10 @@ public class CursoudemyApplication implements CommandLineRunner{
 		est1.getCities().addAll(Arrays.asList(c1));
 		est2.getCities().addAll(Arrays.asList(c2,c3));
 		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p1.getItens().addAll(Arrays.asList(ip2));
+		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3));		
 		stateRepository.saveAll(Arrays.asList(est1,est2));
@@ -111,6 +125,8 @@ public class CursoudemyApplication implements CommandLineRunner{
 		
 		orderRepository.saveAll(Arrays.asList(ped1,ped2));
 		paymentRepository.saveAll(Arrays.asList(pag1,pag2));
+		
+		orderItemRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }
