@@ -17,12 +17,15 @@ import com.matheus.cursoudemy.domain.Order;
 import com.matheus.cursoudemy.domain.Payment;
 import com.matheus.cursoudemy.domain.Product;
 import com.matheus.cursoudemy.domain.State;
+import com.matheus.cursoudemy.domain.TicketPayment;
 import com.matheus.cursoudemy.domain.enums.ClientType;
 import com.matheus.cursoudemy.domain.enums.PaymentState;
 import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.repositories.CityRepository;
 import com.matheus.cursoudemy.repositories.ClientRepository;
+import com.matheus.cursoudemy.repositories.OrderRepository;
+import com.matheus.cursoudemy.repositories.PaymentRepository;
 import com.matheus.cursoudemy.repositories.ProductRepository;
 import com.matheus.cursoudemy.repositories.StateRepository;
 
@@ -41,7 +44,11 @@ public class CursoudemyApplication implements CommandLineRunner{
 	private ClientRepository clientRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoudemyApplication.class, args);
 	}
@@ -77,6 +84,11 @@ public class CursoudemyApplication implements CommandLineRunner{
 		Payment pag1 = new CardPayment(null, PaymentState.PAID, ped1, 6);
 		ped1.setPayment(pag1);
 		
+		Payment pag2 = new TicketPayment(null, PaymentState.PENDING, ped2, sdf.parse("20/10/2021 00:00"), null);
+		ped2.setPayment(pag2);
+		
+		cli1.getOrders().addAll(Arrays.asList(ped1, ped2));
+		
 		
 		cli1.getAddresses().addAll(Arrays.asList(e1,e2));
 		
@@ -96,6 +108,9 @@ public class CursoudemyApplication implements CommandLineRunner{
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(e1,e2));
+		
+		orderRepository.saveAll(Arrays.asList(ped1,ped2));
+		paymentRepository.saveAll(Arrays.asList(pag1,pag2));
 	}
 
 }
