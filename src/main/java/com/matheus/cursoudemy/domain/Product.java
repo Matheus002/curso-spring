@@ -26,6 +26,7 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	
 	private Double price;	
 	
 	@JsonIgnore
