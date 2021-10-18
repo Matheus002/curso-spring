@@ -7,18 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.Order;
-import com.matheus.cursoudemy.repositories.CategoryRepository;
+import com.matheus.cursoudemy.repositories.OrderRepository;
 
 @Service
-public class CategoryService {
+public class OrderService {
 
 	@Autowired
-	private CategoryRepository repo;
+	private OrderRepository repo;
 	
-	public Category find(Integer id) {
-		Optional<Category> obj = repo.findById(id);
+	public Order find(Integer id) {
+		Optional<Order> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
-				"Object not found! Id: " + id + ", Type: " + Order.class.getName()));
+				"Object not found! Id: " + id + ", Type: " + Category.class.getName()));
 	}
 
 }
