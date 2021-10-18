@@ -6,15 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.matheus.cursoudemy.domain.enums.PaymentState;
 
 @Entity
 public class TicketPayment extends Payment {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dueDate;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date paymentDate;
 	
