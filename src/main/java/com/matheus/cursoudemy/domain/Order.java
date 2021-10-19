@@ -31,7 +31,7 @@ public class Order implements Serializable {
 	private Integer id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instance;
 	
 	

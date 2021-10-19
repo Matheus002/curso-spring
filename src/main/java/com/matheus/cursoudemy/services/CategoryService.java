@@ -20,5 +20,15 @@ public class CategoryService {
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
 				"Object not found! Id: " + id + ", Type: " + Order.class.getName()));
 	}
+	
+	public Category insert(Category obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Category update(Category obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 
 }
