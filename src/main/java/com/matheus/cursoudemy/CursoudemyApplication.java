@@ -62,6 +62,11 @@ public class CursoudemyApplication implements CommandLineRunner{
 		
 		Category cat1 = new Category(null, "informática");
 		Category cat2 = new Category(null, "Escritório");
+		Category cat3 = new Category(null, "Cama, mesa e banho");
+		Category cat4 = new Category(null, "Eletrônicos");
+		Category cat5 = new Category(null, "Jardinagem");
+		Category cat6 = new Category(null, "Decoração");
+		Category cat7 = new Category(null, "Perfumaria");
 		
 		Product p1 = new Product(null,"Computador", 2000.00);
 		Product p2 = new Product(null,"Impressora", 800.00);
@@ -116,7 +121,7 @@ public class CursoudemyApplication implements CommandLineRunner{
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p1.getItens().addAll(Arrays.asList(ip2));
 		
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3));		
 		stateRepository.saveAll(Arrays.asList(est1,est2));
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
