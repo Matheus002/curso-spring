@@ -1,5 +1,6 @@
 package com.matheus.cursoudemy.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class CategoryService {
 		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Unable to delete the selected Category because it has references on others tables");
 		}
+	}
+	
+	public List<Category> findAll() {
+		return repo.findAll();
 	}
 
 }
