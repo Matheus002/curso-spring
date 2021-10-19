@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.Order;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
+import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
 @Service
 public class CategoryService {
@@ -38,7 +39,7 @@ public class CategoryService {
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			// TODO: handle exception
+			throw new DataIntegrityException("Unable to delete the selected Category because it has references on others tables");
 		}
 	}
 
