@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.Order;
+import com.matheus.cursoudemy.dto.CategoryDTO;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
@@ -54,6 +55,10 @@ public class CategoryService {
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Category fromDto(CategoryDTO oobjDto) {
+		return new Category(oobjDto.getId(), oobjDto.getName());
 	}
 
 }
