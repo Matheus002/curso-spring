@@ -33,8 +33,9 @@ public class ClientService {
 	}
 	
 	public Client update(Client obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Client newOoj = find(obj.getId());
+		updateData(newOoj, obj);
+		return repo.save(newOoj);
 	}
 	
 	public void delete( Integer id) {
@@ -57,7 +58,12 @@ public class ClientService {
 	}
 	
 	public Client fromDto(ClientDTO oobjDto) {
-		throw new UnsupportedOperationException();		
+		return new Client(oobjDto.getId(),oobjDto.getName(), oobjDto.getEmail(), null, null);	
+	}
+	
+	private void updateData(Client newObj, Client obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
 	}
 
 
