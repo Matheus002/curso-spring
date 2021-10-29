@@ -10,8 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.matheus.cursoudemy.domain.Address;
 import com.matheus.cursoudemy.domain.Client;
+import com.matheus.cursoudemy.domain.enums.ClientType;
 import com.matheus.cursoudemy.dto.ClientDTO;
+import com.matheus.cursoudemy.dto.NewClientDTO;
 import com.matheus.cursoudemy.repositories.ClientRepository;
 import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
@@ -59,6 +62,12 @@ public class ClientService {
 	
 	public Client fromDto(ClientDTO oobjDto) {
 		return new Client(oobjDto.getId(),oobjDto.getName(), oobjDto.getEmail(), null, null);	
+	}
+	
+	public Client fromDto(NewClientDTO objDto) {
+		Client cli = new Client(null, objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()));
+		
+		Address addr = new Address(null, objDto.getPublicPlace(), objDto.getNumber(), objDto.getComplement(),objDto.getDistrict(), objDto.getZipCode(), cli, objDto.getCityId());
 	}
 	
 	private void updateData(Client newObj, Client obj) {

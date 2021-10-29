@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.dto.ClientDTO;
+import com.matheus.cursoudemy.dto.NewClientDTO;
 import com.matheus.cursoudemy.services.ClientService;
 
 @RestController
@@ -34,12 +35,11 @@ public class ClientResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<Client> find(@PathVariable Integer id) {
 		Client obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
-			
+		return ResponseEntity.ok().body(obj);			
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClientDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody NewClientDTO objDto) {
 		Client obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
