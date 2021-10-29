@@ -9,12 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.matheus.cursoudemy.domain.Address;
+import com.matheus.cursoudemy.domain.City;
 import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.enums.ClientType;
-import com.matheus.cursoudemy.dto.ClientDTO;
 import com.matheus.cursoudemy.dto.NewClientDTO;
+import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.ClientRepository;
 import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
@@ -24,6 +26,9 @@ public class ClientService {
 	@Autowired
 	private ClientRepository repo;
 	
+	@Autowired
+	private AddressRepository addressRepo;
+	
 	public Client find(Integer id) {
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
@@ -32,7 +37,9 @@ public class ClientService {
 	
 	public Client insert(Client obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		addressRepo.saveAll(obj.getAddresses());
+		return obj;
 	}
 	
 	public Client update(Client obj) {
@@ -60,14 +67,21 @@ public class ClientService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Client fromDto(ClientDTO oobjDto) {
-		return new Client(oobjDto.getId(),oobjDto.getName(), oobjDto.getEmail(), null, null);	
-	}
-	
+	@Transactional
 	public Client fromDto(NewClientDTO objDto) {
-		Client cli = new Client(null, objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()));
+		 Client cli = new Client(null,objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()));
+		 City ci = new City(objDto.getCityId(), null, null);		 
+		 Address addr = new Address(null, objDto.getPublicPlace(), objDto.getNumber(), objDto.getNumber(), objDto.getComplement(), objDto.getDistrict(), cli, ci);
+		 cli.getAddresses().add(addr);
+		 cli.getPhones().add(objDto.getPhoneNumber1());
+		 if (objDto.getPhoneNumber2() != null) {
+			 cli.getPhones().add(objDto.getPhoneNumber2());
+		 }
+		 if (objDto.getPhoneNumber3() != null) {
+			 cli.getPhones().add(objDto.getPhoneNumber3());
+		 }
+		return cli;
 		
-		Address addr = new Address(null, objDto.getPublicPlace(), objDto.getNumber(), objDto.getComplement(),objDto.getDistrict(), objDto.getZipCode(), cli, objDto.getCityId());
 	}
 	
 	private void updateData(Client newObj, Client obj) {

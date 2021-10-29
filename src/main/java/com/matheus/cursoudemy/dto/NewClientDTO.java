@@ -16,15 +16,13 @@ public class NewClientDTO implements Serializable {
 	private String district;
 	private String zipCode;
 	
-	private String phone1;
-	private String phone2;
-	private String phone3;
+	private String phoneNumber1;
+	private String phoneNumber2;
+	private String phoneNumber3;
 	
 	private Integer cityId;
 	
-	public NewClientDTO() {
-		
-	}
+	public NewClientDTO() {}
 
 	public String getName() {
 		return name;
@@ -98,28 +96,28 @@ public class NewClientDTO implements Serializable {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone1() {
-		return phone1;
+	public String getPhoneNumber1() {
+		return phoneNumber1;
 	}
 
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
+	public void setPhoneNumber1(String phoneNumber1) {
+		this.phoneNumber1 = phoneNumber1;
 	}
 
-	public String getPhone2() {
-		return phone2;
+	public String getPhoneNumber2() {
+		return phoneNumber2;
 	}
 
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
+	public void setPhoneNumber2(String phoneNumber2) {
+		this.phoneNumber2 = phoneNumber2;
 	}
 
-	public String getPhone3() {
-		return phone3;
+	public String getPhoneNumber3() {
+		return phoneNumber3;
 	}
 
-	public void setPhone3(String phone3) {
-		this.phone3 = phone3;
+	public void setPhoneNumber3(String phoneNumber3) {
+		this.phoneNumber3 = phoneNumber3;
 	}
 
 	public Integer getCityId() {
