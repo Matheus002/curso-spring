@@ -58,8 +58,8 @@ public class CategoryService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Category fromDto(CategoryDTO oobjDto) {
-		return new Category(oobjDto.getId(), oobjDto.getName());
+	public Category fromDto(CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
 	}
 	
 	private void updateData(Category newObj, Category obj) {

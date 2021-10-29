@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.matheus.cursoudemy.domain.Client;
-import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.dto.ClientDTO;
 import com.matheus.cursoudemy.services.ClientService;
 
