@@ -2,20 +2,42 @@ package com.matheus.cursoudemy.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.matheus.cursoudemy.services.validation.InsertClient;
+
+@InsertClient
 public class NewClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message = "Required field")
+	@Length(min=5, max=120, message="the length must be between 5 and 120 characters")
 	private String name;
+	
+	@NotEmpty(message = "Required field")
+	@Email(message="Invalid email")
 	private String email;
+	
+	@NotEmpty(message = "Required field")
+	
 	private String cpfOrCnpj;
 	private Integer type;
 	
+	@NotEmpty(message = "Required field")
 	private String publicPlace;
+	
+	@NotEmpty(message = "Required field")
 	private String number;
 	private String complement;
 	private String district;
+	
+	@NotEmpty(message = "Required field")
 	private String zipCode;
 	
+	@NotEmpty(message = "Required field")
 	private String phoneNumber1;
 	private String phoneNumber2;
 	private String phoneNumber3;
