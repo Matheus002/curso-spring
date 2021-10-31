@@ -40,7 +40,7 @@ public class ClientResource {
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody NewClientDTO objDto) {
-		Client obj = service.fromDto(objDto);
+		Client obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
@@ -49,7 +49,7 @@ public class ClientResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClientDTO objDto, @PathVariable Integer id) {
-		Client obj = service.fromDto(objDto);
+		Client obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

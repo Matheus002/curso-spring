@@ -15,6 +15,7 @@ import com.matheus.cursoudemy.domain.Address;
 import com.matheus.cursoudemy.domain.City;
 import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.enums.ClientType;
+import com.matheus.cursoudemy.dto.ClientDTO;
 import com.matheus.cursoudemy.dto.NewClientDTO;
 import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.ClientRepository;
@@ -67,8 +68,12 @@ public class ClientService {
 		return repo.findAll(pageRequest);
 	}
 	
+	public Client fromDTO(ClientDTO objDto) {
+		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null);
+	}
+	
 	@Transactional
-	public Client fromDto(NewClientDTO objDto) {
+	public Client fromDTO(NewClientDTO objDto) {
 		 Client cli = new Client(null,objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()));
 		 City ci = new City(objDto.getCityId(), null, null);		 
 		 Address addr = new Address(null, objDto.getPublicPlace(), objDto.getNumber(), objDto.getNumber(), objDto.getComplement(), objDto.getDistrict(), cli, ci);
