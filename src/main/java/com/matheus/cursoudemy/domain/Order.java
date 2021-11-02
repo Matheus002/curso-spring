@@ -1,8 +1,11 @@
 package com.matheus.cursoudemy.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
@@ -134,6 +137,30 @@ public class Order implements Serializable {
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	@Override
+	public String toString() {		
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
+		StringBuilder builder = new StringBuilder();
+		builder.append("Order nº: ");
+		builder.append(getId());
+		builder.append(", Instance: ");
+		builder.append(sdf.format(getInstance()));
+		builder.append(", Client: ");
+		builder.append(getClient().getName());
+		builder.append(", Payment state: ");
+		builder.append(getPayment().getState().getDescription());
+		builder.append("\nDetails: \n");
+		for(OrderItem or : getItens()) {
+			builder.append(or.toString());
+		}
+		builder.append("Total: ");
+		builder.append(nf.format(getTotalValue()));
+		return builder.toString();
+	}
+	
+	
 	
 
 }
