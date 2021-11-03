@@ -81,7 +81,7 @@ public class DBService {
 		City c2 = new City(null, "Belo Horizonte", est2);
 		City c3 = new City(null, "Ouro Preto", est2);
 		
-		Client cli1 = new Client(null, "Maria Silva", "maria_silva@gmail.com", "28435779000197", ClientType.PHYSICALPERSON);
+		Client cli1 = new Client(null, "Maria Silva", "mhos91491@gmail.com", "28435779000197", ClientType.PHYSICALPERSON);
 		cli1.getPhones().addAll(Arrays.asList("77852521412","77984521212"));
 		
 		Address e1 = new Address(null, "Rua Marta Vasconcelos", "403", "Casa amarela da esquina", "Centro", "45017810", cli1, c1);
