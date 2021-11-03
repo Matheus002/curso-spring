@@ -36,6 +36,9 @@ public class OrderService {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public Order find(Integer id) {
 		Optional<Order> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
@@ -61,7 +64,7 @@ public class OrderService {
 			or.setOrder(obj);
 		}
 		orderItemRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 		
 	}
