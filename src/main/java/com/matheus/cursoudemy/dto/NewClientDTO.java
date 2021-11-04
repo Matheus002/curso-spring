@@ -21,10 +21,13 @@ public class NewClientDTO implements Serializable {
 	@Email(message="Invalid email")
 	private String email;
 	
-	@NotEmpty(message = "Required field")
-	
+	@NotEmpty(message = "Required field")	
 	private String cpfOrCnpj;
+	
 	private Integer type;
+	
+	@NotEmpty(message = "Required field")
+	private String password;
 	
 	@NotEmpty(message = "Required field")
 	private String publicPlace;
@@ -148,6 +151,14 @@ public class NewClientDTO implements Serializable {
 
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

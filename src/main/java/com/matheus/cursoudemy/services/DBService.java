@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.matheus.cursoudemy.domain.Address;
@@ -33,6 +34,8 @@ import com.matheus.cursoudemy.repositories.StateRepository;
 @Service
 public class DBService {
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;	
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -81,7 +84,7 @@ public class DBService {
 		City c2 = new City(null, "Belo Horizonte", est2);
 		City c3 = new City(null, "Ouro Preto", est2);
 		
-		Client cli1 = new Client(null, "Maria Silva", "mhos91491@gmail.com", "28435779000197", ClientType.PHYSICALPERSON);
+		Client cli1 = new Client(null, "Maria Silva", "mhos91491@gmail.com", "28435779000197", ClientType.PHYSICALPERSON, pe.encode("123"));
 		cli1.getPhones().addAll(Arrays.asList("77852521412","77984521212"));
 		
 		Address e1 = new Address(null, "Rua Marta Vasconcelos", "403", "Casa amarela da esquina", "Centro", "45017810", cli1, c1);

@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
 @Service
 public class ClientService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Autowired
 	private ClientRepository repo;
@@ -69,12 +73,12 @@ public class ClientService {
 	}
 	
 	public Client fromDTO(ClientDTO objDto) {
-		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null);
+		return new Client(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null, null);
 	}
 	
 	@Transactional
 	public Client fromDTO(NewClientDTO objDto) {
-		 Client cli = new Client(null,objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()));
+		 Client cli = new Client(null,objDto.getName(), objDto.getEmail(), objDto.getCpfOrCnpj(), ClientType.toEnum(objDto.getType()), pe.encode(objDto.getPassword()));
 		 City ci = new City(objDto.getCityId(), null, null);		 
 		 Address addr = new Address(null, objDto.getPublicPlace(), objDto.getNumber(), objDto.getNumber(), objDto.getComplement(), objDto.getDistrict(), cli, ci);
 		 cli.getAddresses().add(addr);
