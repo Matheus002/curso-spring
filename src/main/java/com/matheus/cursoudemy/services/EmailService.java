@@ -13,5 +13,6 @@ public interface EmailService {
 	void sendEmail(SimpleMailMessage msg);
 	
 	void sendOrderConfirmationHtmlEmail(Order obj);
+	
 	void sendHtmlEmail(MimeMessage msg);
 }
