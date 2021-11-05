@@ -21,6 +21,7 @@ import com.matheus.cursoudemy.domain.State;
 import com.matheus.cursoudemy.domain.TicketPayment;
 import com.matheus.cursoudemy.domain.enums.ClientType;
 import com.matheus.cursoudemy.domain.enums.PaymentState;
+import com.matheus.cursoudemy.domain.enums.Profile;
 import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.CategoryRepository;
 import com.matheus.cursoudemy.repositories.CityRepository;
@@ -84,11 +85,16 @@ public class DBService {
 		City c2 = new City(null, "Belo Horizonte", est2);
 		City c3 = new City(null, "Ouro Preto", est2);
 		
-		Client cli1 = new Client(null, "Maria Silva", "mhos91491@gmail.com", "28435779000197", ClientType.PHYSICALPERSON, pe.encode("123"));
+		Client cli1 = new Client(null, "Maria Silva", "mhos91491@gmail.com", "76557595024", ClientType.PHYSICALPERSON, pe.encode("123"));
 		cli1.getPhones().addAll(Arrays.asList("77852521412","77984521212"));
+		
+		Client cli2 = new Client(null, "Larissa Brito", "matheus002_@hotmail.com", "01559652551", ClientType.PHYSICALPERSON, pe.encode("123"));
+		cli2.addProfile(Profile.ADMIN);
+		cli2.getPhones().addAll(Arrays.asList("77852321412","77985541212"));
 		
 		Address e1 = new Address(null, "Rua Marta Vasconcelos", "403", "Casa amarela da esquina", "Centro", "45017810", cli1, c1);
 		Address e2 = new Address(null, "Avenida Matos", "105", "sala 303", "Centro", "30710485", cli1, c3);
+		Address e3 = new Address(null, "Rua do Pracinha", "2070", "Ao lado do mercado Alianca", "Alto Maron", "30710485", cli2, c1);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
@@ -111,6 +117,7 @@ public class DBService {
 		cli1.getOrders().addAll(Arrays.asList(ped1, ped2));	
 		
 		cli1.getAddresses().addAll(Arrays.asList(e1,e2));
+		cli2.getAddresses().addAll(Arrays.asList(e3));
 		
 		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProducts().addAll(Arrays.asList(p2, p4));
@@ -144,8 +151,8 @@ public class DBService {
 		productRepository.saveAll(Arrays.asList(p1,p2,p3, p4, p5, p6, p7, p8, p9, p10, p11));		
 		stateRepository.saveAll(Arrays.asList(est1,est2));
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
-		clientRepository.saveAll(Arrays.asList(cli1));
-		addressRepository.saveAll(Arrays.asList(e1,e2));
+		clientRepository.saveAll(Arrays.asList(cli1,cli2));
+		addressRepository.saveAll(Arrays.asList(e1,e2,e3));
 		
 		orderRepository.saveAll(Arrays.asList(ped1,ped2));
 		paymentRepository.saveAll(Arrays.asList(pag1,pag2));
