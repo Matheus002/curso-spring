@@ -41,8 +41,7 @@ public class ClientService {
 		UserSS user = UserService.authenticated();
 		if (user == null || !user.hasHole(Profile.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Access Denied!");
-		}
-		
+		}		
 		
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
