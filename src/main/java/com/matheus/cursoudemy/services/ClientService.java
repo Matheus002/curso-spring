@@ -16,10 +16,13 @@ import com.matheus.cursoudemy.domain.Address;
 import com.matheus.cursoudemy.domain.City;
 import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.enums.ClientType;
+import com.matheus.cursoudemy.domain.enums.Profile;
 import com.matheus.cursoudemy.dto.ClientDTO;
 import com.matheus.cursoudemy.dto.NewClientDTO;
 import com.matheus.cursoudemy.repositories.AddressRepository;
 import com.matheus.cursoudemy.repositories.ClientRepository;
+import com.matheus.cursoudemy.security.UserSS;
+import com.matheus.cursoudemy.services.exceptions.AuthorizationException;
 import com.matheus.cursoudemy.services.exceptions.DataIntegrityException;
 
 @Service
@@ -35,6 +38,12 @@ public class ClientService {
 	private AddressRepository addressRepo;
 	
 	public Client find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasHole(Profile.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Access Denied!");
+		}
+		
+		
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.matheus.cursoudemy.services.exceptions.ObjectNotFoundException(
 				"Object not found! Id: " + id + ", Type: " + Client.class.getName()));
