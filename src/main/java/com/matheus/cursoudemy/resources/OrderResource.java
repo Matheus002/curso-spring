@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.matheus.cursoudemy.domain.Category;
 import com.matheus.cursoudemy.domain.Order;
-import com.matheus.cursoudemy.dto.CategoryDTO;
 import com.matheus.cursoudemy.services.OrderService;
 
 @RestController
