@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.matheus.cursoudemy.domain.Client;
 import com.matheus.cursoudemy.domain.Order;
 
 public abstract class AbstraticEmailService implements EmailService {
@@ -69,4 +70,21 @@ public abstract class AbstraticEmailService implements EmailService {
 		mmh.setText(htmlFromTemplateOrder(obj), true);
 		return mimeMessage;
 	}
+	
+	@Override
+	public void sendNewPasswordEmail(Client client, String newPass ) {
+		SimpleMailMessage sm = prepareNewPasswordEmail(client, newPass);
+		sendEmail(sm);
+	}
+
+	protected SimpleMailMessage prepareNewPasswordEmail(Client client, String newPass) {
+		SimpleMailMessage sm = new SimpleMailMessage();
+		sm.setTo(client.getEmail());
+		sm.setFrom(sender);
+		sm.setSubject("New Password solicitation!");
+		sm.setSentDate(new Date(System.currentTimeMillis()));
+		sm.setText("New password: " + newPass );
+		return sm;
+	}
+	
 }
